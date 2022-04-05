@@ -45,3 +45,4 @@ SELECT mov_title FROM movies WHERE mov_id IN (
 SELECT mov_id FROM  movie_cast WHERE act_id IN (
 SELECT act_id FROM actor WHERE act_id IN (
 SELECT act_id FROM  movie_cast GROUP BY act_id HAVING COUNT(act_id)>1)));
+select actor.act_name from actor inner join movie_cast on actor.act_id=movie_cast.act_id where mov_id in (select mov_id from movies where where mov_year<2005 or mov_year>2015);
