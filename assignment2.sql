@@ -40,5 +40,8 @@ insert into rating(mov_id,rev_stars)values(302,4);
 insert into rating(mov_id,rev_stars)values(303,4);
 insert into rating(mov_id,rev_stars)values(304,3);
 
-select movies.mov_title,director.dir_name from movies inner join director on movies.dir_id=director.dir_id where director.dir_id='202';
-select actor.act_name,movies.mov_year from actor inner join movies on actor.act_name=movies.mov_year where movies.mov_year<2000;
+select movies.mov_title,director.dir_name from movies inner join director on movies.dir_id=director.dir_id where director.dir_name='hitcock';
+SELECT mov_title FROM movies WHERE mov_id IN (
+SELECT mov_id FROM  movie_cast WHERE act_id IN (
+SELECT act_id FROM actor WHERE act_id IN (
+SELECT act_id FROM  movie_cast GROUP BY act_id HAVING COUNT(act_id)>1)));
