@@ -1,0 +1,161 @@
+ use em;
+switched to db em
+> db.createCollection("epl");
+> db.epl.insert({"empid":101,"name":"sneha","salary":4000,"role":"mob"});
+> db.epl.insert({"empid":102,"name":"msd","salary":9000,"role":"mob"});
+> db.epl.insert({"empid":103,"name":"surya","salary":4000,"role":"ob"});
+> db.epl.insert({"empid":104,"name":"karthik","salary":5000,"role":"c and wk"});
+> db.epl.insert({"empid":105,"name":"remya","salary":4000,"role":"ob"});
+
+Query 1 : db.epl.find().pretty();
+Output:
+		{
+       			"_id" : ObjectId("62a80d3296a09cfb1965f02d"),
+       			 "empid" : 101,
+        		"name" : "sneha",
+        		"salary" : 4000,
+        		"role" : "mob"
+		}
+		{
+        		"_id" : ObjectId("62a80d4f96a09cfb1965f02e"),
+        		"empid" : 102,
+        		"name" : "msd",
+       		 	"salary" : 9000,
+        		"role" : "mob"
+		}
+		{
+        		"_id" : ObjectId("62a80d6296a09cfb1965f02f"),
+       		 	"empid" : 103,
+        		"name" : "surya",
+        		"salary" : 4000,
+        		"role" : "ob"
+		}
+		{
+        		"_id" : ObjectId("62a80d7d96a09cfb1965f030"),
+        		"empid" : 104,
+        		"name" : "karthik",
+        		"salary" : 5000,
+        		"role" : "c and wk"
+		}
+		{
+        		"_id" : ObjectId("62a80d9396a09cfb1965f031"),
+        		"empid" : 105,
+        		"name" : "remya",
+        		"salary" : 4000,
+        		"role" : "ob"
+		}
+
+
+
+Query 2: db.epl.updateOne({"name":"sneha"},{$inc:{"salary":8000}});
+Output:db.epl.find({"name":"sneha").pretty();
+		{"_id" : ObjectId("62a80d3296a09cfb1965f02d"), "empid" : 101, "name" : "sneha", "salary" : 12000, "role" : "mob" }
+
+
+Query 3: db.epl.updateMany({},{$inc:{"salary":4000}});
+Output:db.epl.find().pretty();
+		{
+ 			"_id" : ObjectId("62a80d3296a09cfb1965f02d"),
+        		"empid" : 101,
+        		"name" : "sneha",
+        		"salary" : 16000,
+        		"role" : "mob"
+		}
+		{
+        		"_id" : ObjectId("62a80d4f96a09cfb1965f02e"),
+        		"empid" : 102,
+        		"name" : "msd",
+        		"salary" : 13000,
+        		"role" : "mob"
+		}
+		{
+		        "_id" : ObjectId("62a80d6296a09cfb1965f02f"),
+        		"empid" : 103,
+        		"name" : "surya",
+        		"salary" : 8000,
+        		"role" : "ob"
+		}
+		{
+        		"_id" : ObjectId("62a80d7d96a09cfb1965f030"),
+        		"empid" : 104,
+        		"name" : "karthik",
+        		"salary" : 9000,
+        		"role" : "c and wk"
+		}
+		{
+        		"_id" : ObjectId("62a80d9396a09cfb1965f031"),
+       		 	"empid" : 105,
+        		"name" : "remya",
+        		"salary" : 8000,
+        		"role" : "ob"
+		}
+
+
+Query 4: db.epl.updateOne({"name":"msd"},{$set:{"role":"c and wk"}});
+Output:db.epl.find({"name":"msd").pretty();
+		{ "_id" : ObjectId("62a80d4f96a09cfb1965f02e"), "empid" : 102, "name" : "msd", "salary" : 13000, "role" : "c and wk" }
+
+
+
+Query 5: db.epl.updateOne({"name":"remya"},{$push:{"remark":"wc"}});
+Output:db.epl.find({"name":"remya").pretty();
+		{
+			"_id" : ObjectId("62a80d9396a09cfb1965f031"),
+        		"empid" : 105,
+        		"name" : "remya",
+        		"salary" : 8000,
+        		"role" : "ob",
+        		"remark" : [
+                		"wc"
+        		]
+		}
+
+
+Query 6:db.epl.updateOne({"role":"rd"},{$mul:{"salary":2}})
+Output:db.epl.find({"role":"rd").pretty();
+		{
+        		"_id" : ObjectId("62a80d6296a09cfb1965f02f"),
+        		"empid" : 103,
+        		"name" : "surya",
+       		 	"salary" : 16000,
+        		"role" : "rd"
+		}
+
+
+
+Query 7:db.epl.find({"name":{$regex:"^s"}});
+Output:
+		{ "_id" : ObjectId("62a80d3296a09cfb1965f02d"), "empid" : 101, "name" : "sneha", "salary" : 16000, "role" : "mob" }
+		{ "_id" : ObjectId("62a80d6296a09cfb1965f02f"), "empid" : 103, "name" : "surya", "salary" : 8000, "role" : "ob" }
+
+
+Query 8:db.epl.find({"name":{$regex:"k$"}});
+Output:
+		{ "_id" : ObjectId("62a80d7d96a09cfb1965f030"), "empid" : 104, "name" : "karthik", "salary" : 9000, "role" : "c and wk" }
+
+
+
+Query 9:db.epl.find({"name":{$regex:"s"}});
+Output:
+		{ "_id" : ObjectId("62a80d3296a09cfb1965f02d"), "empid" : 101, "name" : "sneha", "salary" : 16000, "role" : "mob" }
+		{ "_id" : ObjectId("62a80d4f96a09cfb1965f02e"), "empid" : 102, "name" : "msd", "salary" : 13000, "role" : "c and wk" }
+		{ "_id" : ObjectId("62a80d6296a09cfb1965f02f"), "empid" : 103, "name" : "surya", "salary" : 8000, "role" : "ob" }
+
+
+
+Query 10:db.epl.find().limit(1).sort({"salary":-1});
+Output:
+	{ "_id" : ObjectId("62a80d3296a09cfb1965f02d"), "empid" : 101, "name" : "sneha", "salary" : 16000, "role" : "mob" }
+		
+
+Query 11:db.epl.find({$or:[{"role":"ob"},{"role":"mob"}]})
+Output:
+		{ "_id" : ObjectId("62a80d3296a09cfb1965f02d"), "empid" : 101, "name" : "sneha", "salary" : 16000, "role" : "mob" }
+		{ "_id" : ObjectId("62a80d6296a09cfb1965f02f"), "empid" : 103, "name" : "surya", "salary" : 8000, "role" : "ob" }
+		{ "_id" : ObjectId("62a80d9396a09cfb1965f031"), "empid" : 105, "name" : "remya", "salary" : 8000, "role" : "ob", "remark" : [ "wc" ] }
+
+
+Query 12:db.epl.find({$nor:[{"role":"ob"},{"role":"mob"}]})
+Output:
+		{ "_id" : ObjectId("62a80d4f96a09cfb1965f02e"), "empid" : 102, "name" : "msd", "salary" : 13000, "role" : "c and wk" }
+		{ "_id" : ObjectId("62a80d7d96a09cfb1965f030"), "empid" : 104, "name" : "karthik", "salary" : 9000, "role" : "c and wk" }
