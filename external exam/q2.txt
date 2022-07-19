@@ -1,0 +1,46 @@
+> use examm
+switched to db examm
+> db.createCollection("student");
+{ "ok" : 1 }
+
+1)
+> db.student.insert({"Name":"Anjali","Place":"Kollam","Phone":8582639562,"Vaccination_status":"Both vaccinated","RTPCR":"nagative","Lab_Mark":{"internal":30,"External":45},"Department":"MCA"});
+WriteResult({ "nInserted" : 1 })
+
+2)
+> db.student.insert({"_id":2,"Name":"Anuradha","Place":"Varkala","Phone":9992639562,"Vaccination_status":"Both vaccinated","RTPCR":"nagative","Lab_Mark":{"internal":40,"External":48},"Department":"Civil"});
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({"_id":3,"Name":"Bismiya","Place":"Kollam","Phone":9446639562,"Vaccination_status":"not vaccinated","RTPCR":"positive","Lab_Mark":{"internal":50,"External":39},"Department":"MCA"});
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({"_id":4,"Name":"Vimal","Place":"Eranakulam","Phone":8582639568,"Vaccination_status":"First dose only","RTPCR":"positive","Lab_Mark":{"internal":40,"External":42},"Department":"Civil"});
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({"_id":5,"Name":"Vivek","Place":"Kollam","Phone":8582639777,"Vaccination_status":"Both vaccinated","RTPCR":"nagative","Lab_Mark":{"internal":50,"External":50},"Department":"MCA"});
+WriteResult({ "nInserted" : 1 })
+
+3)
+> db.student.find({Vaccination_status:"not vaccinated"}).count();
+1
+
+4)
+> db.student.find({Department:"MCA"},{Name:1,Phone:1,_id:0}).sort({"Lab_Mark.External":-1});
+{ "Name" : "Vivek", "Phone" : 8582639777 }
+{ "Name" : "Anjali", "Phone" : 8582639562 }
+{ "Name" : "Bismiya", "Phone" : 9446639562 }
+
+5)
+> db.student.updateOne({"_id":4},{$set:{"Vaccination_status":"Both vaccinated"}});
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.student.find({"_id":4}).pretty();
+{
+        "_id" : 4,
+        "Name" : "Vimal",
+        "Place" : "Eranakulam",
+        "Phone" : 8582639568,
+        "Vaccination_status" : "Both vaccinated",
+        "RTPCR" : "positive",
+        "Lab_Mark" : {
+                "internal" : 40,
+                "External" : 42
+        },
+        "Department" : "Civil"
+}
